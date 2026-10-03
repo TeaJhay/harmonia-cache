@@ -1,0 +1,16 @@
+services:
+  harmonia:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+      - "2222:22"
+    environment:
+      WORKERS: ${WORKERS:-4}
+      PRIORITY: ${PRIORITY:-30}
+    volumes:
+      - nix-store:/nix
+      - harmonia-keys:/keys
+volumes:
+  nix-store:
+  harmonia-keys:
