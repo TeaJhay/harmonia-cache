@@ -2,18 +2,10 @@ This is pretty much completely slopped as I didn't want to use nix for one thing
 
 just add the ip:port and pub key from Harmonia to your nix.settings to use it as cache.
 
-You can get the pub key by printing the pem file inside the docker container
-```
-printf "%s\n" "$(docker exec <container> cat /keys/cache-pub-key.pem)"
-```
+You can get the keys and config options via the IP or URL if using a reverse proxy
 
 ```
-nix.settings = {
-            substituters = [
-              "http://127.0.0.1:5000" # If using direct IP.
-              #"https://cache.your.domain" # If setup with reverse proxy
-            ];
-            trusted-public-keys = [
-             "cache.lan-1:AAAAAAAAAAAAAAAAAAA=" # Enter pub key here
-            ];
+http://127.0.0.1:5000 # If using IP
+
+https://cache.your.domain # If setup with reverse proxy
 ```
