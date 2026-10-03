@@ -1,21 +1,14 @@
 FROM nixos/nix:latest
 
 RUN nix --extra-experimental-features 'nix-command flakes' \
-      profile add github:nix-community/harmonia nixpkgs#gettext
+      profile add github:manic-systems/circus \
+      nixpkgs#gettext nixpkgs#postgresql
 
-ENV WORKERS=4 \
-    MAX_CONNECTION_RATE=256 \
-    PRIORITY=30 \
-    COMPRESSION=true \
-    VIRTUAL_NIX_STORE=/nix/store \
-    DB_PATH=/nix/var/nix/db/db.sqlite \
-    CACHE_PRIV_KEY=cache-priv-key.pem \
-    CACHE_PUB_KEY=cache-pub-key.pem
+ENV NIX_CONFIG="experimental-features = nix-command flakes"
 
-COPY harmonia.toml.tpl /etc/harmonia.toml.tpl
+COPY circus.toml.tpl /etc/circus.toml.tpl
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-VOLUME ["/nix", "/keys"]
-EXPOSE 5000 22
+EXPOSE 3000 22
 ENTRYPOINT ["/entrypoint.sh"]
