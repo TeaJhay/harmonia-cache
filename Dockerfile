@@ -1,7 +1,7 @@
 FROM nixos/nix:latest
 
 RUN nix --extra-experimental-features 'nix-command flakes' \
-      profile install nixpkgs#harmonia nixpkgs#gettext
+      profile add github:nix-community/harmonia nixpkgs#gettext
 
 ENV WORKERS=4 \
     MAX_CONNECTION_RATE=256 \
