@@ -2,6 +2,17 @@
 set -e
 export PATH=/root/.nix-profile/bin:$PATH
 
+set -a
+: "${WORKERS:-4}"
+: "${PRIORITY:-30"}
+    {MAX_CONNECTION_RATE:-256}
+    PRIORITY:-30
+    COMPRESSION:-true
+    VIRTUAL_NIX_STORE:-/nix/store
+    DB_PATH:-/nix/var/nix/db/db.sqlite
+    CACHE_PRIV_KEY:-cache-priv-key.pem
+    CACHE_PUB_KEY:-cache-pub-key.pem
+
 mkdir -p /var/empty /run/sshd /root/.ssh /keys
 grep -q '^sshd:' /etc/passwd || echo 'sshd:x:74:74:sshd:/var/empty:/bin/false' >> /etc/passwd
 
