@@ -5,9 +5,8 @@ services:
     ports:
       - "5000:5000"
       - "2222:22"
-    environment:
-      WORKERS: ${WORKERS:-4}
-      PRIORITY: ${PRIORITY:-30}
+    env_file:
+      - stack.env
     volumes:
       - nix-store:/nix
       - harmonia-keys:/keys
